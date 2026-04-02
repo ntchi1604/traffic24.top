@@ -2,6 +2,8 @@ import '../dashboard.css'
 import { useState } from 'react'
 import { useNavigate, useLocation, Routes, Route } from 'react-router-dom'
 import TopupPage from './TopupPage'
+import ReportPage from './ReportPage'
+import SupportPage from './SupportPage'
 
 /* ─── Theme hook ─── */
 function useTheme() {
@@ -505,8 +507,8 @@ export default function DashboardPage() {
             <Route path="/campaigns" element={<CampaignManagement onCreateNew={() => navigate('/create')} />} />
             <Route path="/create" element={<CreateCampaignPage />} />
             <Route path="/topup" element={<TopupPage theme={theme} />} />
-            <Route path="/report" element={<StubPage title="Báo Cáo" icon="📊" />} />
-            <Route path="/support" element={<StubPage title="Hỗ Trợ" icon="💬" />} />
+            <Route path="/report" element={<ReportPage theme={theme} />} />
+            <Route path="/support" element={<SupportPage theme={theme} />} />
           </Routes>
         </div>
       </div>

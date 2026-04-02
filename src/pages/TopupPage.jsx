@@ -119,7 +119,7 @@ export default function TopupPage({ theme = 'dark' }) {
 
       <div style={{ position: 'relative', zIndex: 1, padding: '0 0 40px' }}>
         {/* TOP SECTION: Balance + Payment Form */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 22, marginBottom: 24 }}>
+        <div id="topup-main-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 22, marginBottom: 24 }}>
 
           {/* ── Balance Card ── */}
           <div style={{
@@ -449,6 +449,11 @@ export default function TopupPage({ theme = 'dark' }) {
           </div>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 768px) {
+          #topup-main-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   )
 }
