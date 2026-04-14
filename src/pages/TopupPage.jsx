@@ -2,33 +2,20 @@ import { useState } from 'react'
 
 /* ─── Mock Data ─── */
 const TRANSACTIONS = [
-  { id: 'TXN-8821', date: '01/04/2026', method: 'USDT (TRC20)', amount: +200, status: 'success', type: 'topup' },
-  { id: 'TXN-8790', date: '31/03/2026', method: 'Visa *4521', amount: -45.50, status: 'success', type: 'spend' },
-  { id: 'TXN-8755', date: '29/03/2026', method: 'USDT (TRC20)', amount: +500, status: 'success', type: 'topup' },
-  { id: 'TXN-8701', date: '27/03/2026', method: 'PayPal', amount: +100, status: 'success', type: 'topup' },
-  { id: 'TXN-8680', date: '26/03/2026', method: 'Visa *4521', amount: -82.00, status: 'success', type: 'spend' },
-  { id: 'TXN-8652', date: '24/03/2026', method: 'USDT (ERC20)', amount: +300, status: 'success', type: 'topup' },
-  { id: 'TXN-8610', date: '22/03/2026', method: 'Visa *4521', amount: -120.50, status: 'success', type: 'spend' },
+  { id: 'TXN-8821', date: '01/04/2026', method: 'Chuyển Khoản (MB Bank)', amount: +5080000, status: 'success', type: 'topup' },
+  { id: 'TXN-8790', date: '31/03/2026', method: 'Chi tiêu chiến dịch', amount: -1155700, status: 'success', type: 'spend' },
+  { id: 'TXN-8755', date: '29/03/2026', method: 'Chuyển Khoản (Vietcombank)', amount: +12700000, status: 'success', type: 'topup' },
+  { id: 'TXN-8701', date: '27/03/2026', method: 'MoMo', amount: +2540000, status: 'success', type: 'topup' },
+  { id: 'TXN-8680', date: '26/03/2026', method: 'Chi tiêu chiến dịch', amount: -2082800, status: 'success', type: 'spend' },
+  { id: 'TXN-8652', date: '24/03/2026', method: 'Chuyển Khoản (ACB)', amount: +7620000, status: 'success', type: 'topup' },
+  { id: 'TXN-8610', date: '22/03/2026', method: 'Chi tiêu chiến dịch', amount: -3060700, status: 'success', type: 'spend' },
 ]
 
 const METHODS = [
   {
-    id: 'crypto',
-    label: 'Crypto / USDT',
-    sub: 'TRC20 · BEP20',
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" width="36" height="36">
-        <circle cx="20" cy="20" r="18" fill="rgba(255,140,0,0.15)" stroke="rgba(255,140,0,0.5)" strokeWidth="1.5" />
-        <path d="M20 8v24M14 14h9a3 3 0 010 6h-9M14 20h10a3 3 0 010 6h-10" stroke="#FF8C00" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
-    color: '#FF8C00',
-    badge: 'Phổ biến',
-  },
-  {
-    id: 'visa',
-    label: 'Thẻ Visa / Mastercard',
-    sub: 'Thẻ tín dụng · ghi nợ',
+    id: 'bank',
+    label: 'Chuyển Khoản Ngân Hàng',
+    sub: 'Vietcombank · MB Bank · ACB',
     icon: (
       <svg viewBox="0 0 40 40" fill="none" width="36" height="36">
         <rect x="4" y="10" width="32" height="20" rx="4" fill="rgba(0,86,204,0.15)" stroke="rgba(0,86,204,0.5)" strokeWidth="1.5" />
@@ -38,25 +25,38 @@ const METHODS = [
       </svg>
     ),
     color: '#1A7FFF',
+    badge: 'Phổ biến',
+  },
+  {
+    id: 'momo',
+    label: 'Ví MoMo',
+    sub: 'Thanh toán qua ứng dụng',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="36" height="36">
+        <circle cx="20" cy="20" r="18" fill="rgba(174,0,255,0.12)" stroke="rgba(174,0,255,0.4)" strokeWidth="1.5" />
+        <text x="20" y="26" textAnchor="middle" fontSize="16" fontWeight="900" fill="rgba(174,0,255,0.9)">M</text>
+      </svg>
+    ),
+    color: '#AE00FF',
     badge: null,
   },
   {
-    id: 'paypal',
-    label: 'PayPal',
-    sub: 'Ví điện tử quốc tế',
+    id: 'zalopay',
+    label: 'ZaloPay',
+    sub: 'Ví điện tử ZaloPay',
     icon: (
       <svg viewBox="0 0 40 40" fill="none" width="36" height="36">
-        <circle cx="20" cy="20" r="18" fill="rgba(0,120,200,0.12)" stroke="rgba(0,120,200,0.4)" strokeWidth="1.5" />
-        <path d="M15 12h8a5 5 0 010 10h-5l-1 6H13l4-16z" fill="rgba(0,120,200,0.4)" stroke="rgba(0,120,200,0.7)" strokeWidth="1.2" />
-        <path d="M18 16h6a3 3 0 010 6h-4" stroke="rgba(100,180,255,0.9)" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="20" cy="20" r="18" fill="rgba(0,130,250,0.12)" stroke="rgba(0,130,250,0.4)" strokeWidth="1.5" />
+        <text x="20" y="26" textAnchor="middle" fontSize="12" fontWeight="900" fill="rgba(0,130,250,0.9)">Z</text>
       </svg>
     ),
-    color: '#009CDE',
+    color: '#0082FA',
     badge: null,
   },
 ]
 
-const QUICK_AMOUNTS = [50, 100, 200, 500, 1000]
+
+const QUICK_AMOUNTS = [100000, 200000, 500000, 1000000, 2000000]
 
 /* ─── Floating background coins ─── */
 function FloatingCoins() {
@@ -110,7 +110,7 @@ export default function TopupPage({ theme = 'dark' }) {
   const [amount, setAmount] = useState('')
   const [txnFilter, setTxnFilter] = useState('all')
 
-  const balance = 5240.00
+  const balance = 31700000
   const filtered = txnFilter === 'all' ? TRANSACTIONS : TRANSACTIONS.filter(t => t.type === txnFilter)
 
   return (
@@ -175,11 +175,11 @@ export default function TopupPage({ theme = 'dark' }) {
                 filter: isDark ? 'drop-shadow(0 0 20px rgba(0,200,105,0.4))' : 'drop-shadow(0 2px 8px rgba(0,180,90,0.3))',
                 marginBottom: 6,
               }}>
-                ${balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                {balance.toLocaleString('vi-VN')}₫
               </div>
 
               <div style={{ color: isDark ? 'rgba(180,215,255,0.5)' : '#3a5a9a', fontSize: 12, fontWeight: 500 }}>
-                ≈ {(balance * 25400).toLocaleString('vi-VN')} VNĐ
+                ≈ {(balance / 25400).toFixed(2)} USD
               </div>
 
               {/* Divider */}
@@ -188,8 +188,8 @@ export default function TopupPage({ theme = 'dark' }) {
               {/* Stats row */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                 {[
-                  { label: 'Đã nạp tháng này', value: '+$1,000', color: '#00C969' },
-                  { label: 'Đã chi tiêu', value: '-$248', color: isDark ? '#FF6B85' : '#E03060' },
+                  { label: 'Đã nạp tháng này', value: '+25.400.000₫', color: '#00C969' },
+                  { label: 'Đã chi tiêu', value: '-6.298.200₫', color: isDark ? '#FF6B85' : '#E03060' },
                 ].map(s => (
                   <div key={s.label}>
                     <div style={{ fontSize: 11, color: isDark ? 'rgba(180,215,255,0.5)' : '#3a5a9a', fontWeight: 600, marginBottom: 3 }}>{s.label}</div>
@@ -259,10 +259,10 @@ export default function TopupPage({ theme = 'dark' }) {
             {/* Amount input */}
             <div style={{ marginBottom: 14 }}>
               <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--db-text-2)', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 8 }}>
-                Số Tiền (USD)
+                Số Tiền (VNĐ)
               </div>
               <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', fontSize: 16, fontWeight: 800, color: '#00C969' }}>$</span>
+                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', fontSize: 16, fontWeight: 800, color: '#00C969' }}>₫</span>
                 <input id="topup-amount"
                   type="number" min={10} placeholder="0.00"
                   value={amount} onChange={e => setAmount(e.target.value)}
@@ -290,7 +290,7 @@ export default function TopupPage({ theme = 'dark' }) {
                       transition: 'all 0.18s',
                     }}
                   >
-                    ${q}
+                    {q.toLocaleString('vi-VN')}₫
                   </button>
                 ))}
               </div>
@@ -315,21 +315,10 @@ export default function TopupPage({ theme = 'dark' }) {
                   <path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   <path d="M12 14v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
-                Nạp Tiền Ngay {amount ? `— $${amount}` : ''}
+                Nạp Tiền Ngay {amount ? `— ${Number(amount).toLocaleString('vi-VN')}₫` : ''}
               </span>
             </button>
 
-            {/* Security badges */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 14, flexWrap: 'wrap' }}>
-              {['SSL Encrypted', 'PCI DSS', 'Instant Credit'].map(badge => (
-                <div key={badge} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 10.5, color: 'var(--db-text-3)', fontWeight: 600 }}>
-                  <svg viewBox="0 0 12 12" fill="none" width="10" height="10">
-                    <path d="M6 1L2 2.5v3.5c0 2.5 4 4 4 4s4-1.5 4-4V2.5L6 1z" stroke="currentColor" strokeWidth="1" />
-                  </svg>
-                  {badge}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
@@ -413,7 +402,7 @@ export default function TopupPage({ theme = 'dark' }) {
                         fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 800,
                         color: tx.amount > 0 ? '#00C969' : '#FF4D6A',
                       }}>
-                        {tx.amount > 0 ? '+' : ''}{tx.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                        {tx.amount > 0 ? '+' : ''}{Math.abs(tx.amount).toLocaleString('vi-VN')}₫
                       </span>
                     </td>
                     <td style={{ padding: '14px 20px' }}>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 /* ─── SVG Icons ─── */
 function IcoSearch() {
@@ -105,11 +105,14 @@ const DURATIONS = [60, 90, 120, 150, 200]
 
 export default function CreateCampaignPage() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const preselect = location.state ?? {}
+
   const [form, setForm] = useState({
     name: '',
-    trafficType: 'organic',
-    version: 1,
-    duration: 60,
+    trafficType: preselect.trafficType ?? 'organic',
+    version:     preselect.version     ?? 1,
+    duration:    preselect.duration    ?? 60,
     viewsPerDay: 500,
     totalViews: 1000,
     distributeEvenly: true,
@@ -344,7 +347,7 @@ export default function CreateCampaignPage() {
               </div>
 
               {/* Column headers */}
-              <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: 8, marginBottom: 6, padding: '0 4px' }}>
+              <div className="cr-kw-grid-header" style={{ display: 'grid', gridTemplateColumns: gridCols, gap: 8, marginBottom: 6, padding: '0 4px' }}>
                 {(hasKw || isSocial) && (
                   <span className="cr-label">{isSocial ? 'URL Bài Viết (Social)' : 'Từ Khóa'}</span>
                 )}
@@ -357,7 +360,7 @@ export default function CreateCampaignPage() {
               {/* Data rows */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {form.keywords.map((kw, idx) => (
-                  <div key={kw.id} style={{ display: 'grid', gridTemplateColumns: gridCols, gap: 8, alignItems: 'center', padding: '2px 4px' }}>
+                  <div key={kw.id} className="cr-kw-grid-row" style={{ display: 'grid', gridTemplateColumns: gridCols, gap: 8, alignItems: 'center', padding: '2px 4px' }}>
                     {/* Col 1: keyword (Organic) | social post link (Social) | hidden (Direct) */}
                     {hasKw && (
                       <input id={`cr-kw-${idx}`} type="text" placeholder="Từ khóa SEO..."
@@ -572,7 +575,7 @@ export default function CreateCampaignPage() {
                       <circle cx="7" cy="7" r="1" fill="currentColor" />
                     </svg>
                     <input className="cr-input cr-input-has-icon" id="cr-discount" type="text"
-                      placeholder="Nhập mã giảm giá... (thử REAL10)"
+                      placeholder="Nhập mã giảm giá..."
                       value={form.discountCode} onChange={e => set('discountCode', e.target.value)} />
                   </div>
                   {discount > 0 && (

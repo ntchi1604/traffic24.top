@@ -148,7 +148,16 @@ export default function SupportPage({ theme = 'dark' }) {
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState(TICKETS[0].messages)
   const [filter, setFilter] = useState('all')
+  const [showChat, setShowChat] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const chatRef = useRef(null)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   const ticket = TICKETS[active]
 
@@ -173,13 +182,18 @@ export default function SupportPage({ theme = 'dark' }) {
     }, 1200)
   }
 
+  const handleSelectTicket = (idx) => {
+    setActive(idx)
+    if (isMobile) setShowChat(true)
+  }
+
   const filtered = filter === 'all' ? TICKETS : TICKETS.filter(t => t.status === filter)
 
   return (
-    <div id="support-page" style={{ display: 'flex', flexDirection: 'column', gap: 0, height: 'calc(100vh - 160px)', minHeight: 560 }}>
+    <div id="support-page" style={{ display: 'flex', flexDirection: 'column', gap: 0, height: 'calc(100vh - 160px)', minHeight: 480 }}>
 
       {/* Page header row */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+      <div id="sp-header-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, gap: 10, flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', gap: 6 }}>
           {[['all', 'Tất Cả', TICKETS.length], ['pending', 'Đang Xử Lý', TICKETS.filter(t => t.status === 'pending').length], ['closed', 'Đã Đóng', TICKETS.filter(t => t.status === 'closed').length]].map(([val, label, count]) => (
             <button key={val} id={`sp-filter-${val}`} onClick={() => setFilter(val)} style={{
@@ -215,14 +229,16 @@ export default function SupportPage({ theme = 'dark' }) {
 
       {/* Main two-column panel */}
       <div style={{
-        flex: 1, display: 'grid', gridTemplateColumns: '320px 1fr', gap: 0,
-        ...glass, borderRadius: 24, overflow: 'hidden', minHeight: 0,
+        flex: 1, display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '320px 1fr',
+        gap: 0, ...glass, borderRadius: 24, overflow: 'hidden', minHeight: 0,
       }}>
 
         {/* ── Left: Ticket List ── */}
         <div style={{
-          borderRight: '1px solid var(--db-border)',
-          display: 'flex', flexDirection: 'column', overflow: 'hidden',
+          borderRight: isMobile ? 'none' : '1px solid var(--db-border)',
+          display: isMobile && showChat ? 'none' : 'flex',
+          flexDirection: 'column', overflow: 'hidden',
         }}>
           {/* Search */}
           <div style={{ padding: '18px 16px 12px', borderBottom: '1px solid var(--db-border)', flexShrink: 0 }}>
@@ -248,7 +264,7 @@ export default function SupportPage({ theme = 'dark' }) {
               const isPending = tk.status === 'pending'
               const tag = TAG_COLORS[tk.tag] || TAG_COLORS.Campaign
               return (
-                <button key={tk.id} id={`sp-ticket-${tk.id}`} onClick={() => setActive(realIdx)} style={{
+                <button key={tk.id} id={`sp-ticket-${tk.id}`} onClick={() => handleSelectTicket(realIdx)} style={{
                   width: '100%', textAlign: 'left', padding: '14px 16px',
                   background: isActive ? (isDark ? 'rgba(0,86,204,0.18)' : 'rgba(0,86,204,0.1)') : 'transparent',
                   border: 'none',
@@ -294,18 +310,30 @@ export default function SupportPage({ theme = 'dark' }) {
         </div>
 
         {/* ── Right: Chat Detail ── */}
-        <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <div style={{ display: isMobile && !showChat ? 'none' : 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
           {/* Chat header */}
           <div style={{
-            padding: '16px 24px', borderBottom: '1px solid var(--db-border)',
+            padding: '12px 16px', borderBottom: '1px solid var(--db-border)',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             flexShrink: 0, background: isDark ? 'rgba(0,86,204,0.05)' : 'rgba(0,86,204,0.03)',
+            gap: 8,
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              <AgentAvatar size={44} />
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--db-title-color)', marginBottom: 2 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+              {/* Back button — mobile only */}
+              {isMobile && (
+                <button onClick={() => setShowChat(false)} style={{
+                  background: 'none', border: 'none', cursor: 'pointer', padding: '4px 6px',
+                  color: 'var(--db-text-2)', display: 'flex', alignItems: 'center', flexShrink: 0,
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              )}
+              <AgentAvatar size={36} />
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--db-title-color)', marginBottom: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {ticket.subject}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -440,6 +468,11 @@ export default function SupportPage({ theme = 'dark' }) {
         @keyframes sp-bounce {
           0%, 100% { transform: translateY(0); opacity: 0.5; }
           50% { transform: translateY(-5px); opacity: 1; }
+        }
+        @media (max-width: 600px) {
+          #sp-header-row { flex-direction: column !important; align-items: flex-start !important; }
+          #sp-header-row > div { flex-wrap: wrap !important; }
+          #sp-new-ticket { width: 100% !important; justify-content: center !important; }
         }
       `}</style>
     </div>
