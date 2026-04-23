@@ -434,7 +434,7 @@ export default function AccountProfilePage() {
   const STATS = [
     { label: 'Chiến dịch', value: '12',    color: '#3b82f6', icon: Ic.grid   },
     { label: 'Số dư',      value: '$1,250', color: '#10b981', icon: Ic.zap    },
-    { label: 'Traffic',   value: '2.4M',   color: '#f97316', icon: Ic.zap    },
+    { label: 'Traffic',   value: (2400000).toLocaleString('vi-VN'), color: '#f97316', icon: Ic.zap    },
     { label: 'Hạng',      value: 'VIP',    color: '#a855f7', icon: Ic.trophy },
   ]
 

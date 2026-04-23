@@ -52,17 +52,17 @@ const KPI = [
     spark: [3, 5, 4, 7, 6, 9, 8, 10, 12]
   },
   {
-    id: 'traffic', label: 'Traffic Đã Giao', value: '2.4M', delta: '+18%', up: true, color: '#FF8C00',
+    id: 'traffic', label: 'Traffic Đã Giao', value: 2400000, delta: '+18%', up: true, color: '#FF8C00',
     icon: <svg viewBox="0 0 24 24" fill="none"><path d="M22 12H2M16 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>,
     spark: [2, 4, 3, 6, 8, 7, 9, 11, 14]
   },
   {
-    id: 'balance', label: 'Số Dư Khả Dụng', value: '31.7M', delta: '-3.05M', up: false, color: '#00C969',
+    id: 'balance', label: 'Số Dư Khả Dụng', value: 31700000, delta: '-3.050.000', up: false, color: '#00C969',
     icon: <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" /><path d="M12 7v10M9 10h4.5a1.5 1.5 0 010 3H9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>,
     spark: [10, 9, 11, 8, 12, 10, 9, 8, 8]
   },
   {
-    id: 'cost', label: 'Đã Chi Tiêu', value: '1.27M', delta: '-203K', up: false, color: '#A855F7',
+    id: 'cost', label: 'Đã Chi Tiêu', value: 1270000, delta: '-203.000', up: false, color: '#A855F7',
     icon: <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="currentColor" strokeWidth="1.8" /><path d="M2 10h20" stroke="currentColor" strokeWidth="1.8" /><path d="M6 15h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>,
     spark: [28, 32, 30, 35, 38, 36, 42, 46, 50]
   },
@@ -100,6 +100,7 @@ function Sparkline({ data, color, w = 80, h = 32 }) {
 function TrafficChart({ theme, days = 30 }) {
   const isDark = theme === 'dark'
   const [hovIdx, setHovIdx] = useState(null)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const wrapRef = useRef(null)
   const svgRef = useRef(null)
   const [cW, setCW] = useState(700)
@@ -111,12 +112,10 @@ function TrafficChart({ theme, days = 30 }) {
     return () => obs.disconnect()
   }, [])
 
-  /* viewBox khớp pixel thực → không méo, fill 100% width */
-  const W = Math.max(cW, 300), H = 160
-  const PAD = { t: 18, r: 64, b: 38, l: 58 }
+  const W = Math.max(cW, 300), H = 185
+  const PAD = { t: 18, r: 100, b: 44, l: 58 }
   const innerW = W - PAD.l - PAD.r, innerH = H - PAD.t - PAD.b
 
-  // Generate deterministic data based on selected date range
   const { labels, traffic, cost } = (() => {
     if (days <= 1) {
       return {
@@ -151,81 +150,112 @@ function TrafficChart({ theme, days = 30 }) {
   const pathT = makePath(ptsT)
   const pathC = makePath(ptsC)
   const areaT = pathT + ` L ${ptsT[ptsT.length - 1].x} ${PAD.t + innerH} L ${ptsT[0].x} ${PAD.t + innerH} Z`
-  const gridLines = [0, .25, .5, .75, 1].map(f => ({ y: PAD.t + f * innerH, vT: Math.round(maxT * (1 - f)).toLocaleString(), vC: Math.round(maxC * (1 - f)) }))
+  const fmtVND = (val) => val.toLocaleString('vi-VN') + 'đ'
+  const gridLines = [0, .25, .5, .75, 1].map(f => ({ y: PAD.t + f * innerH, vT: Math.round(maxT * (1 - f)).toLocaleString('vi-VN'), vC: Math.round(maxC * (1 - f)) }))
   const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'
   const labelColor = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.35)'
+  // Auto x-axis label density: show as many labels as fit without overlap (min 30px per label)
+  const xMaxLabels = Math.max(2, Math.floor(innerW / 30))
+  const xStep = Math.max(1, Math.ceil(ptsT.length / xMaxLabels))
 
   const handleMouseMove = (e) => {
     const svg = svgRef.current; if (!svg) return
     const rect = svg.getBoundingClientRect()
-    // viewBox W == cW → scale ≈ 1, no distortion in coordinate mapping
-    const svgX = ((e.clientX - rect.left) / rect.width) * W
+    const clientX = e.clientX ?? (e.touches?.[0]?.clientX)
+    const clientY = e.clientY ?? (e.touches?.[0]?.clientY)
+    if (clientX == null) return
+    const svgX = ((clientX - rect.left) / rect.width) * W
     let closest = 0, minDist = Infinity
     ptsT.forEach((p, i) => { const d = Math.abs(p.x - svgX); if (d < minDist) { minDist = d; closest = i } })
     setHovIdx(closest)
+    setMousePos({ x: clientX, y: clientY })
   }
 
   const hp = hovIdx !== null ? ptsT[hovIdx] : null
   const hc = hovIdx !== null ? ptsC[hovIdx] : null
 
-  /* Tooltip position — clamp so it doesn't overflow edges */
-  const ttW = 158, ttH = 82
-  const ttX = hp ? Math.min(Math.max(hp.x - ttW / 2, 4), W - ttW - 4) : 0
-  const ttY = hp ? Math.max(PAD.t - ttH - 10, 0) : 0
-  const ttBg = isDark ? 'rgba(10,20,50,0.92)' : 'rgba(255,255,255,0.96)'
+  const ttBg = isDark ? 'rgba(8,16,42,0.97)' : 'rgba(255,255,255,0.99)'
+  const ttBorder = isDark ? 'rgba(255,255,255,0.13)' : 'rgba(0,40,120,0.13)'
   const ttText = isDark ? 'rgba(240,245,255,0.9)' : 'rgba(10,22,60,0.9)'
+  const ttSub = isDark ? 'rgba(180,200,240,0.6)' : 'rgba(10,22,60,0.45)'
+
+  /* HTML tooltip via createPortal — position:fixed → never clipped by any parent overflow */
+  const tooltip = hp && hc ? createPortal(
+    <div style={{
+      position: 'fixed',
+      left: mousePos.x + 18,
+      top: mousePos.y - 70,
+      transform: mousePos.x > window.innerWidth - 240 ? 'translateX(calc(-100% - 36px))' : 'none',
+      zIndex: 99999,
+      pointerEvents: 'none',
+      minWidth: 200,
+      background: ttBg,
+      border: `1px solid ${ttBorder}`,
+      borderRadius: 12,
+      padding: '10px 14px 12px',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.32), 0 2px 8px rgba(0,0,0,0.2)',
+      backdropFilter: 'blur(24px)',
+      WebkitBackdropFilter: 'blur(24px)',
+    }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: ttSub, marginBottom: 9, fontFamily: "'Inter',sans-serif", letterSpacing: '0.02em' }}>
+        {hp.label}
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginBottom: 7 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexShrink: 0 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#0056CC', flexShrink: 0, display: 'inline-block' }} />
+          <span style={{ fontSize: 12, color: ttText, fontFamily: "'Inter',sans-serif" }}>Traffic</span>
+        </div>
+        <span style={{ fontSize: 13, fontWeight: 800, color: '#1A7FFF', fontFamily: "'Outfit',sans-serif", whiteSpace: 'nowrap' }}>
+          {hp.v.toLocaleString('vi-VN')}
+        </span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexShrink: 0 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#FF8C00', flexShrink: 0, display: 'inline-block' }} />
+          <span style={{ fontSize: 12, color: ttText, fontFamily: "'Inter',sans-serif" }}>Chi phí</span>
+        </div>
+        <span style={{ fontSize: 13, fontWeight: 800, color: '#FF8C00', fontFamily: "'Outfit',sans-serif", whiteSpace: 'nowrap' }}>
+          {fmtVND(hc.v * 25400)}
+        </span>
+      </div>
+    </div>,
+    document.body
+  ) : null
 
   return (
-    <div ref={wrapRef} style={{ width: '100%' }}>
+    <div ref={wrapRef} style={{ width: '100%', position: 'relative', overflow: 'visible' }}>
+      {tooltip}
       <svg ref={svgRef}
         viewBox={`0 0 ${W} ${H}`}
         style={{ width: '100%', height: H, display: 'block', cursor: 'crosshair', overflow: 'visible' }}
         onMouseMove={handleMouseMove}
-        onMouseLeave={() => setHovIdx(null)}>
+        onMouseLeave={() => setHovIdx(null)}
+        onTouchMove={handleMouseMove}
+        onTouchEnd={() => setHovIdx(null)}>
         <defs>
           <linearGradient id="chartLineT" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#0056CC" />
             <stop offset="100%" stopColor="#7B3FDB" />
           </linearGradient>
-          <linearGradient id="chartAreaT" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#0056CC" stopOpacity={isDark ? '0.28' : '0.14'} />
-            <stop offset="100%" stopColor="#0056CC" stopOpacity="0.02" />
-          </linearGradient>
+          <linearGradient id="chartAreaT" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#0056CC" stopOpacity={isDark ? '0.28' : '0.14'} /><stop offset="100%" stopColor="#0056CC" stopOpacity="0.02" /></linearGradient>
           <filter id="lineGlow"><feGaussianBlur stdDeviation="3" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
-          <filter id="ttShadow"><feDropShadow dx="0" dy="4" stdDeviation="10" floodColor="rgba(0,0,0,0.3)" /></filter>
         </defs>
-
-        {/* Grid */}
         {gridLines.map((g, i) => (
           <g key={i}>
             <line x1={PAD.l} y1={g.y} x2={PAD.l + innerW} y2={g.y} stroke={gridColor} strokeWidth="1" strokeDasharray="4 6" />
             <text x={PAD.l - 8} y={g.y + 4} fill={labelColor} fontSize="10" textAnchor="end" fontFamily="Inter,sans-serif">{g.vT}</text>
-            <text x={W - PAD.r + 10} y={g.y + 4} fill="rgba(255,140,0,0.55)" fontSize="10" textAnchor="start" fontFamily="Inter,sans-serif">{(g.vC * 25400).toLocaleString('vi-VN')}đ</text>
+            {/* Right axis: anchor END at right edge of viewBox so text never overflows */}
+            <text x={W - 4} y={g.y + 4} fill="rgba(255,140,0,0.6)" fontSize="9.5" textAnchor="end" fontFamily="Inter,sans-serif">{fmtVND(g.vC * 25400)}</text>
           </g>
         ))}
-        {ptsT.filter((_, i) => i % 2 === 0).map((p, i) => (
-          <text key={i} x={p.x} y={H - 6} fill={labelColor} fontSize="10" textAnchor="middle" fontFamily="Inter,sans-serif">{p.label}</text>
+        {ptsT.filter((_, i) => i % xStep === 0 || i === ptsT.length - 1).map((p, i) => (
+          <text key={i} x={p.x} y={H - 10} fill={labelColor} fontSize="10" textAnchor="middle" fontFamily="Inter,sans-serif">{p.label}</text>
         ))}
-
-        {/* Crosshair */}
-        {hp && (
-          <line x1={hp.x} x2={hp.x} y1={PAD.t} y2={PAD.t + innerH}
-            stroke={isDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,40,120,0.18)'}
-            strokeWidth="1.5" strokeDasharray="4 3" />
-        )}
-
-        {/* Traffic area + line */}
+        {hp && <line x1={hp.x} x2={hp.x} y1={PAD.t} y2={PAD.t + innerH} stroke={isDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,40,120,0.18)'} strokeWidth="1.5" strokeDasharray="4 3" />}
         <path d={areaT} fill="url(#chartAreaT)" />
         <path d={pathT} fill="none" stroke="url(#chartLineT)" strokeWidth="5" strokeOpacity="0.2" filter="url(#lineGlow)" strokeLinecap="round" />
         <path d={pathT} fill="none" stroke="url(#chartLineT)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        {ptsT.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y}
-            r={hovIdx === i ? 6 : 3}
-            fill={isDark ? '#fff' : '#0056CC'} stroke="url(#chartLineT)"
-            strokeWidth={hovIdx === i ? 2.5 : 1.5}
-            style={{ transition: 'r 0.1s, stroke-width 0.1s' }} />
-        ))}
-
+        {ptsT.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r={hovIdx === i ? 6 : 3} fill={isDark ? '#fff' : '#0056CC'} stroke="url(#chartLineT)" strokeWidth={hovIdx === i ? 2.5 : 1.5} style={{ transition: 'r 0.1s, stroke-width 0.1s' }} />)}
         {/* Cost line */}
         <path d={pathC} fill="none" stroke="#FF8C00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 3" />
         {ptsC.map((p, i) => (
@@ -235,32 +265,6 @@ function TrafficChart({ theme, days = 30 }) {
             strokeWidth={hovIdx === i ? 2.5 : 1.5}
             style={{ transition: 'r 0.1s, stroke-width 0.1s' }} />
         ))}
-
-        {/* Tooltip */}
-        {hp && hc && (() => {
-          const tx = Math.min(Math.max(hp.x - ttW / 2, PAD.l), PAD.l + innerW - ttW)
-          const ty = hp.y - ttH - 18 < PAD.t ? hp.y + 18 : hp.y - ttH - 18
-          return (
-            <g style={{ pointerEvents: 'none' }}>
-              <rect x={tx} y={ty} width={ttW} height={ttH} rx="10" ry="10"
-                fill={ttBg} stroke={isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,40,120,0.1)'}
-                strokeWidth="1" filter="url(#ttShadow)" />
-              {/* Label */}
-              <text x={tx + 12} y={ty + 20} fill={isDark ? 'rgba(200,210,240,0.7)' : 'rgba(10,22,60,0.5)'}
-                fontSize="11" fontWeight="600" fontFamily="Inter,sans-serif">{hp.label}</text>
-              {/* Traffic row */}
-              <circle cx={tx + 14} cy={ty + 37} r="4" fill="#0056CC" />
-              <text x={tx + 24} y={ty + 41} fill={ttText} fontSize="11" fontFamily="Inter,sans-serif">Traffic</text>
-              <text x={tx + ttW - 10} y={ty + 41} fill="#1A7FFF" fontSize="13" fontWeight="800"
-                textAnchor="end" fontFamily="Outfit,sans-serif">{hp.v.toLocaleString()}</text>
-              {/* Cost row */}
-              <circle cx={tx + 14} cy={ty + 60} r="4" fill="#FF8C00" />
-              <text x={tx + 24} y={ty + 64} fill={ttText} fontSize="11" fontFamily="Inter,sans-serif">Chi phí</text>
-              <text x={tx + ttW - 10} y={ty + 64} fill="#FF8C00" fontSize="13" fontWeight="800"
-                textAnchor="end" fontFamily="Outfit,sans-serif">{(hc.v * 25400).toLocaleString('vi-VN')}đ</text>
-            </g>
-          )
-        })()}
       </svg>
     </div>
   )
@@ -413,11 +417,16 @@ function StubPage({ title, icon }) {
   )
 }
 
-/* ─── Overview page ─── */
+const fmtKpi = (n) => {
+  if (n === null || n === undefined) return '—'
+  if (typeof n === 'string') return n
+  return n.toLocaleString('vi-VN')
+}
+
 const KPI_BY_RANGE_OV = {
-  7: { campaigns: '12', traffic: '560K', balance: '31.7M', cost: '1.27M', dCamp: '+1', dTraffic: '+8%', dBalance: '-711K', dCost: '+203K' },
-  30: { campaigns: '12', traffic: '2.4M', balance: '31.7M', cost: '5.33M', dCamp: '+2', dTraffic: '+18%', dBalance: '-3.05M', dCost: '+864K' },
-  90: { campaigns: '12', traffic: '7.1M', balance: '31.7M', cost: '15.7M', dCamp: '+5', dTraffic: '+31%', dBalance: '-8.89M', dCost: '+2.41M' },
+  7: { campaigns: 12, traffic: 560000, balance: 31700000, cost: 1270000, dCamp: '+1', dTraffic: '+8%', dBalance: '-711.000', dCost: '+203.000' },
+  30: { campaigns: 12, traffic: 2400000, balance: 31700000, cost: 5330000, dCamp: '+2', dTraffic: '+18%', dBalance: '-3.050.000', dCost: '+864.000' },
+  90: { campaigns: 12, traffic: 7100000, balance: 31700000, cost: 15700000, dCamp: '+5', dTraffic: '+31%', dBalance: '-8.890.000', dCost: '+2.410.000' },
 }
 
 function OverviewPage({ theme }) {
@@ -428,10 +437,10 @@ function OverviewPage({ theme }) {
   const d = KPI_BY_RANGE_OV[bucket]
 
   const kpiData = [
-    { ...KPI[0], value: d.campaigns, delta: d.dCamp, up: true },
-    { ...KPI[1], value: d.traffic, delta: d.dTraffic, up: true },
-    { ...KPI[2], value: d.balance, delta: d.dBalance, up: false },
-    { ...KPI[3], value: d.cost, delta: d.dCost, up: false },
+    { ...KPI[0], value: fmtKpi(d.campaigns), delta: d.dCamp, up: true },
+    { ...KPI[1], value: fmtKpi(d.traffic), delta: d.dTraffic, up: true },
+    { ...KPI[2], value: fmtKpi(d.balance), delta: d.dBalance, up: false },
+    { ...KPI[3], value: fmtKpi(d.cost), delta: d.dCost, up: false },
   ]
 
   return (

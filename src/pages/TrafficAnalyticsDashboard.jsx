@@ -89,9 +89,9 @@ function sliceValues(values90, rangeInfo) {
 
 /* ── Helpers ── */
 const sumArr = arr => arr.reduce((a, b) => a + b, 0)
-const fmt = n => n >= 1000 ? `${(n / 1000).toFixed(1)}K` : String(n)
+const fmt = n => n.toLocaleString('vi-VN')
 const fmtFull = n => n.toLocaleString('vi-VN')
-const fmtN = n => n >= 1e6 ? (n / 1e6).toFixed(2) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : String(n)
+const fmtN = n => n.toLocaleString('vi-VN')
 
 /* ── Palette & static chart data ── */
 const PC = { blue: '#0056CC', blueL: '#1A7FFF', orange: '#FF8C00', green: '#00C969', purple: '#7B3FDB', cyan: '#00D4FF' }
@@ -340,7 +340,7 @@ function CustomTooltip({ active, payload, label }) {
       {cost && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: '#A78BFA' }}>
           <span style={{ width: 8, height: 2, borderRadius: 99, background: '#A78BFA', display: 'inline-block' }} />
-          {(cost.value * 25.4).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.')}K₫ chi phí
+          {Math.round(cost.value * 25400).toLocaleString('vi-VN')}₫ chi phí
         </div>
       )}
     </div>
@@ -680,7 +680,7 @@ export default function TrafficAnalyticsDashboard({ theme = 'dark', range: exter
   const avgDaily = Math.round(totalTraffic / rangeInfo.days)
   const peakDay = chartData.reduce((b, d) => d.traffic > b.traffic ? d : b, chartData[0] ?? { name: '–', traffic: 0 })
   const totalCost = totalTraffic > 0 ? (totalTraffic / 1000 * 1.5) : 0
-  const fmtCost = totalCost >= 1000 ? `${(totalCost * 25.4).toFixed(0)}K₫` : `${Math.round(totalCost * 25400).toLocaleString('vi-VN')}₫`
+  const fmtCost = `${Math.round(totalCost * 25400).toLocaleString('vi-VN')}₫`
 
   const scopeColor = selectedCamp?.color ?? '#3B82F6'
 
@@ -791,7 +791,7 @@ export default function TrafficAnalyticsDashboard({ theme = 'dark', range: exter
         <KPICard label="Tổng Traffic" value={fmt(totalTraffic)} sub={`${fmtFull(totalTraffic)} lượt`} color={scopeColor} icon={Icons.traffic} />
         <KPICard label="Trung Bình / Ngày" value={fmt(avgDaily)} sub={`${fmtFull(avgDaily)} lượt/ngày`} color="#F59E0B" icon={Icons.chart} />
         <KPICard label="Ngày Cao Nhất" value={peakDay?.name || '–'} sub={peakDay ? `${fmtFull(peakDay.traffic)} lượt` : ''} color="#10B981" icon={Icons.peak} />
-        <KPICard label="Đã Chi Tiêu" value={fmtCost} sub={`25.4K₫ / 1,000 lượt · ${rangeInfo.days} ngày`} color="#A78BFA" icon={Icons.card} />
+        <KPICard label="Đã Chi Tiêu" value={fmtCost} sub={`25.400₫ / 1.000 lượt · ${rangeInfo.days} ngày`} color="#A78BFA" icon={Icons.card} />
       </div>
 
       {/* ── WORLD MAP + DEVICE (responsive grid) ── */}
