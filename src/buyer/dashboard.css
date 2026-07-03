@@ -114,7 +114,7 @@ body[data-theme="light"] {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   transition: background 0.35s ease, color 0.35s ease;
 }
 
@@ -255,7 +255,7 @@ body[data-theme="light"] {
   border: none;
   background: transparent;
   color: var(--db-text-2);
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 13.5px;
   font-weight: 500;
   cursor: pointer;
@@ -379,7 +379,7 @@ body[data-theme="light"] {
 }
 
 .db-page-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
   font-weight: 800;
   color: var(--db-title-color);
@@ -409,7 +409,7 @@ body[data-theme="light"] {
   background: var(--db-surface);
   border: 1px solid var(--db-border);
   color: var(--db-text-2);
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -627,7 +627,7 @@ body[data-theme="light"] {
 }
 
 .db-kpi-value {
-  font-family: 'Outfit', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 26px;
   font-weight: 900;
   color: var(--kpi-color);
@@ -689,7 +689,7 @@ body[data-theme="light"] {
 }
 
 .db-panel-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   font-weight: 700;
   color: var(--db-title-color);
@@ -758,7 +758,7 @@ body[data-theme="light"] {
   background: rgba(0, 86, 204, 0.10);
   border: 1px solid rgba(0, 86, 204, 0.22);
   color: #1A7FFF;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 12.5px;
   font-weight: 600;
   padding: 8px 16px;
@@ -820,7 +820,7 @@ body[data-theme="light"] {
 .db-campaign-stats {
   font-size: 11.5px;
   color: var(--db-td-stats);
-  font-family: 'Courier New', monospace;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .db-link-url {
@@ -877,7 +877,7 @@ body[data-theme="light"] {
   color: var(--db-pct-color);
   min-width: 36px;
   text-align: right;
-  font-family: 'Courier New', monospace;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .db-status-badge {
@@ -1126,7 +1126,7 @@ body[data-theme="light"] {
 }
 
 .db-modal-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 17px;
   font-weight: 800;
   color: var(--db-title-color);
@@ -1178,7 +1178,7 @@ body[data-theme="light"] {
   border: 1px solid var(--db-border);
   border-radius: 12px;
   padding: 11px 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   color: var(--db-text);
   transition: all 0.22s;
@@ -1214,7 +1214,7 @@ body[data-theme="light"] {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .db-modal-cancel:hover {
@@ -1233,7 +1233,7 @@ body[data-theme="light"] {
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 4px 20px rgba(255, 140, 0, 0.35);
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .db-modal-submit:hover {
@@ -1610,7 +1610,7 @@ body[data-theme="light"] {
 .cm-sub {
   font-size: 11.5px;
   color: var(--db-td-stats);
-  font-family: "Courier New", monospace;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .cm-country {
@@ -2014,7 +2014,7 @@ body[data-theme="light"] {
 }
 
 .cr-page-title {
-  font-family: "Outfit", sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 22px;
   font-weight: 900;
   color: var(--db-title-color);
@@ -2067,7 +2067,7 @@ body[data-theme="light"] {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: "Outfit", sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   font-weight: 800;
   color: var(--db-title-color);
@@ -2244,7 +2244,7 @@ body[data-theme="light"] {
 }
 
 .cr-ver-title {
-  font-family: "Outfit", sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   font-weight: 800;
   color: var(--db-title-color);
@@ -2280,7 +2280,7 @@ body[data-theme="light"] {
   background: var(--db-surface-2);
   border: 1.5px solid var(--db-border);
   border-radius: 100px;
-  font-family: "Outfit", sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   font-weight: 700;
   color: var(--db-text-2);
@@ -2324,7 +2324,7 @@ body[data-theme="light"] {
 
 .cr-num-input {
   padding-right: 46px !important;
-  font-family: "Outfit", sans-serif !important;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
   font-size: 16px !important;
   font-weight: 800 !important;
   color: #FF8C00 !important;
@@ -2617,7 +2617,7 @@ body[data-theme="light"] {
   gap: 10px;
   padding: 18px 20px;
   border-bottom: 1px solid var(--db-border);
-  font-family: "Outfit", sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   font-weight: 800;
   color: var(--db-title-color);
@@ -2684,7 +2684,7 @@ body[data-theme="light"] {
 }
 
 .cr-sum-total {
-  font-family: "Outfit", sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 38px;
   font-weight: 900;
   color: #00C969;
@@ -2708,7 +2708,7 @@ body[data-theme="light"] {
   background: linear-gradient(135deg, #FF8C00, #E07800);
   border: none;
   border-radius: 14px;
-  font-family: "Outfit", sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   font-weight: 900;
   color: #fff;

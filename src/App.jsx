@@ -8,21 +8,34 @@ import DangKyPage from './pages/DangKyPage'
 import DangNhapPage from './pages/DangNhapPage'
 import BlogPage from './pages/BlogPage'
 import BlogPostPage from './pages/BlogPostPage'
-import DashboardPage from './pages/DashboardPage'
+import DashboardPage from './buyer/pages/DashboardPage'
+import UserDashboardPage from './user/pages/UserDashboardPage'
 
 /* ── Subdomain detection ──
-   Production : buyer.traffic24h.top  → dashboard
-   Local dev  : buyer.localhost       → dashboard (add to hosts file if needed)
+   Production : buyer.traffic24h.top  → buyer dashboard
+   Production : user.traffic24h.top   → user dashboard
+   Local dev  : buyer.localhost       → buyer dashboard
+   Local dev  : user.localhost        → user dashboard
    Otherwise  : public marketing site
 */
 const isBuyerSubdomain = window.location.hostname.startsWith('buyer.')
+const isUserSubdomain = window.location.hostname.startsWith('user.')
 
 export default function App() {
-  /* Render dashboard standalone – no Navbar / Footer */
+  /* Render buyer dashboard standalone – no Navbar / Footer */
   if (isBuyerSubdomain) {
     return (
       <BrowserRouter>
         <DashboardPage />
+      </BrowserRouter>
+    )
+  }
+
+  /* Render user dashboard standalone – no Navbar / Footer */
+  if (isUserSubdomain) {
+    return (
+      <BrowserRouter>
+        <UserDashboardPage />
       </BrowserRouter>
     )
   }
