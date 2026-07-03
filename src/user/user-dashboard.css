@@ -2193,6 +2193,22 @@ body[data-theme="light"] {
   background: var(--ud-text-3);
 }
 
+/* ═══ PAGE TRANSITION ═══ */
+.ud-page-transition {
+  animation: udPageIn 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes udPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ═══ FADE / SLIDE ANIMATIONS ═══ */
 .ud-fade-in {
   animation: udModalIn 0.3s ease;

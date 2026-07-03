@@ -13,6 +13,73 @@ import UserAccountPage from './UserAccountPage'
 import UserSupportPage from './UserSupportPage'
 import UserApiPage from './UserApiPage'
 
+/* ═══ Mouse Spotlight ═══ */
+function MouseSpotlight({ containerRef }) {
+  const dotRef = useRef(null)
+  const glowRef = useRef(null)
+
+  useEffect(() => {
+    const container = containerRef?.current
+    if (!container) return
+
+    let raf = null
+    let mx = 0, my = 0
+
+    const move = e => {
+      const rect = container.getBoundingClientRect()
+      mx = e.clientX - rect.left
+      my = e.clientY - rect.top
+      if (!raf) {
+        raf = requestAnimationFrame(() => {
+          if (dotRef.current) {
+            dotRef.current.style.transform = `translate(${mx - 10}px, ${my - 10}px)`
+          }
+          if (glowRef.current) {
+            glowRef.current.style.transform = `translate(${mx - 150}px, ${my - 150}px)`
+          }
+          raf = null
+        })
+      }
+    }
+
+    container.addEventListener('mousemove', move, { passive: true })
+    container.addEventListener('mouseenter', () => {
+      if (dotRef.current) dotRef.current.style.opacity = '1'
+      if (glowRef.current) glowRef.current.style.opacity = '1'
+    })
+    container.addEventListener('mouseleave', () => {
+      if (dotRef.current) dotRef.current.style.opacity = '0'
+      if (glowRef.current) glowRef.current.style.opacity = '0'
+    })
+
+    return () => {
+      container.removeEventListener('mousemove', move)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [containerRef])
+
+  return (
+    <>
+      <div ref={dotRef} style={{
+        position: 'fixed', width: 20, height: 20, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(99,102,241,0.7) 0%, transparent 70%)',
+        pointerEvents: 'none', zIndex: 99998, opacity: 0,
+        transition: 'opacity 0.3s ease',
+        willChange: 'transform',
+        mixBlendMode: 'screen',
+      }} />
+      <div ref={glowRef} style={{
+        position: 'fixed', width: 300, height: 300, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.04) 40%, transparent 70%)',
+        pointerEvents: 'none', zIndex: 99997, opacity: 0,
+        transition: 'opacity 0.4s ease',
+        willChange: 'transform',
+        filter: 'blur(1px)',
+      }} />
+    </>
+  )
+}
+
 /* ─── Theme hook ─── */
 function useTheme() {
   const getSystem = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
@@ -660,6 +727,7 @@ export default function UserDashboardPage() {
     return all
   })
   const profileRef = useRef(null)
+  const spotlightRef = useRef(null)
 
   const seg = location.pathname.replace(/^\//, '')
   const { title, sub } = PAGE_TITLES[seg] || { title: 'Dashboard', sub: '' }
@@ -694,7 +762,8 @@ export default function UserDashboardPage() {
   const navTo = path => { navigate(path); setSidebarOpen(false) }
 
   return (
-    <div className="ud-root" data-theme={theme}>
+    <div ref={spotlightRef} className="ud-root" data-theme={theme}>
+      <MouseSpotlight containerRef={spotlightRef} />
       {/* Background */}
       <div className="ud-bg">
         <div className="ud-bg-orb ud-bg-orb1" />
@@ -792,6 +861,7 @@ export default function UserDashboardPage() {
         </header>
 
         <div className="ud-content">
+          <div key={location.pathname} className="ud-page-transition">
           <Routes>
             <Route index element={<OverviewPage theme={theme} />} />
             <Route path="links" element={<UserLinksPage />} />
@@ -804,6 +874,7 @@ export default function UserDashboardPage() {
             <Route path="support" element={<UserSupportPage />} />
             <Route path="api" element={<UserApiPage />} />
           </Routes>
+          </div>
         </div>
         <div className="ud-watermark">Traffic24h © 2026</div>
       </div>
