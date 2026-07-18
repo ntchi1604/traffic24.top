@@ -205,7 +205,7 @@ function TrafficChart({ theme, days = 30 }) {
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#0056CC', flexShrink: 0, display: 'inline-block' }} />
           <span style={{ fontSize: 12, color: ttText, fontFamily: "'Inter',sans-serif" }}>Traffic</span>
         </div>
-        <span style={{ fontSize: 13, fontWeight: 800, color: '#1A7FFF', fontFamily: "'Outfit',sans-serif", whiteSpace: 'nowrap' }}>
+        <span style={{ fontSize: 13, fontWeight: 800, color: '#1A7FFF', fontFamily: "'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif", whiteSpace: 'nowrap' }}>
           {hp.v.toLocaleString('vi-VN')}
         </span>
       </div>
@@ -214,7 +214,7 @@ function TrafficChart({ theme, days = 30 }) {
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#FF8C00', flexShrink: 0, display: 'inline-block' }} />
           <span style={{ fontSize: 12, color: ttText, fontFamily: "'Inter',sans-serif" }}>Chi phí</span>
         </div>
-        <span style={{ fontSize: 13, fontWeight: 800, color: '#FF8C00', fontFamily: "'Outfit',sans-serif", whiteSpace: 'nowrap' }}>
+        <span style={{ fontSize: 13, fontWeight: 800, color: '#FF8C00', fontFamily: "'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif", whiteSpace: 'nowrap' }}>
           {fmtVND(hc.v * 25400)}
         </span>
       </div>
@@ -411,7 +411,7 @@ function StubPage({ title, icon }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '50vh', gap: 16, opacity: 0.45 }}>
       <div style={{ fontSize: 48 }}>{icon}</div>
-      <p style={{ fontFamily: "'Outfit',sans-serif", fontSize: 18, fontWeight: 700, color: 'var(--db-text)' }}>{title}</p>
+      <p style={{ fontFamily: "'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif", fontSize: 18, fontWeight: 700, color: 'var(--db-text)' }}>{title}</p>
       <p style={{ fontSize: 13, color: 'var(--db-text-3)' }}>Trang này đang được phát triển</p>
     </div>
   )
@@ -584,7 +584,7 @@ function OverviewPage({ theme }) {
               {/* Content */}
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3, flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--db-text)', fontFamily: "'Outfit',sans-serif" }}>{item.title}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--db-text)', fontFamily: "'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" }}>{item.title}</span>
                   <span style={{
                     fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20,
                     background: `color-mix(in srgb, ${item.tagColor} 14%, transparent)`,
@@ -1024,7 +1024,7 @@ function ProfileDropdown({ open, onNav }) {
         {/* Balance card */}
         <div style={{ margin: '6px 12px', padding: '10px 14px', borderRadius: 12, background: 'rgba(26,127,255,0.08)', border: '1px solid rgba(26,127,255,0.15)' }}>
           <div style={{ fontSize: 11, color: '#1A7FFF', fontWeight: 600, marginBottom: 3, opacity: 0.8 }}>Số Dư Hiện Tại</div>
-          <div style={{ fontSize: 18, fontWeight: 900, color: '#1A7FFF', fontFamily: "'Outfit',sans-serif" }}>31.700.000₫</div>
+          <div style={{ fontSize: 18, fontWeight: 900, color: '#1A7FFF', fontFamily: "'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" }}>31.700.000₫</div>
         </div>
 
         {/* Divider */}

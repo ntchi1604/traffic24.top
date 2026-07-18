@@ -168,7 +168,7 @@ export default function TopupPage({ theme = 'dark' }) {
 
               {/* Big balance */}
               <div style={{
-                fontFamily: "'Outfit', sans-serif",
+                fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`,
                 fontSize: 52, fontWeight: 900, lineHeight: 1,
                 background: 'linear-gradient(135deg, #00C969 0%, #00E87A 40%, #7DFFC0 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
@@ -193,7 +193,7 @@ export default function TopupPage({ theme = 'dark' }) {
                 ].map(s => (
                   <div key={s.label}>
                     <div style={{ fontSize: 11, color: isDark ? 'rgba(180,215,255,0.5)' : '#3a5a9a', fontWeight: 600, marginBottom: 3 }}>{s.label}</div>
-                    <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: 18, fontWeight: 800, color: s.color }}>{s.value}</div>
+                    <div style={{ fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`, fontSize: 18, fontWeight: 800, color: s.color }}>{s.value}</div>
                   </div>
                 ))}
               </div>
@@ -269,7 +269,7 @@ export default function TopupPage({ theme = 'dark' }) {
                   style={{
                     width: '100%', padding: '13px 14px 13px 30px',
                     background: 'var(--db-surface-2)', border: '1px solid var(--db-border)',
-                    borderRadius: 12, fontSize: 20, fontFamily: "'Outfit', sans-serif",
+                    borderRadius: 12, fontSize: 20, fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`,
                     fontWeight: 800, color: '#00C969', outline: 'none',
                     boxSizing: 'border-box',
                     transition: 'border-color 0.2s',
@@ -301,7 +301,7 @@ export default function TopupPage({ theme = 'dark' }) {
               style={{
                 width: '100%', padding: '14px', borderRadius: 14, cursor: 'pointer',
                 background: 'linear-gradient(135deg, #FF8C00, #FF6B00)',
-                border: 'none', color: '#fff', fontFamily: "'Outfit', sans-serif",
+                border: 'none', color: '#fff', fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`,
                 fontSize: 15, fontWeight: 800, letterSpacing: '0.3px',
                 boxShadow: '0 8px 28px rgba(255,140,0,0.35)',
                 transition: 'all 0.22s',
@@ -336,7 +336,7 @@ export default function TopupPage({ theme = 'dark' }) {
             borderBottom: '1px solid var(--db-border)',
           }}>
             <div>
-              <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: 17, fontWeight: 800, color: 'var(--db-title-color)' }}>
+              <div style={{ fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`, fontSize: 17, fontWeight: 800, color: 'var(--db-title-color)' }}>
                 Lịch Sử Giao Dịch
               </div>
               <div style={{ fontSize: 12, color: 'var(--db-text-3)', marginTop: 2 }}>
@@ -381,7 +381,7 @@ export default function TopupPage({ theme = 'dark' }) {
                     onMouseEnter={e => e.currentTarget.style.background = 'var(--db-row-hover)'}
                     onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                   >
-                    <td style={{ padding: '14px 20px', fontFamily: "'Courier New', monospace", fontSize: 12.5, color: 'var(--db-text-2)', fontWeight: 600 }}>
+                    <td style={{ padding: '14px 20px', fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif", fontSize: 12.5, color: 'var(--db-text-2)', fontWeight: 600 }}>
                       {tx.id}
                     </td>
                     <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--db-text-2)' }}>
@@ -399,7 +399,7 @@ export default function TopupPage({ theme = 'dark' }) {
                     </td>
                     <td style={{ padding: '14px 20px' }}>
                       <span style={{
-                        fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 800,
+                        fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`, fontSize: 15, fontWeight: 800,
                         color: tx.amount > 0 ? '#00C969' : '#FF4D6A',
                       }}>
                         {tx.amount > 0 ? '+' : ''}{Math.abs(tx.amount).toLocaleString('vi-VN')}₫

@@ -98,7 +98,7 @@ function KpiCard({ icon, label, value, valueColor, valueShadow, sub, accentBg, a
       <div style={{ position:'relative', zIndex:1, display:'flex', alignItems:'flex-start', justifyContent:'space-between' }}>
         <div>
           <div style={{ fontSize:10, fontWeight:800, textTransform:'uppercase', letterSpacing:'0.8px', color:'var(--db-text-3)', marginBottom:12 }}>{label}</div>
-          <div style={{ fontFamily:"'Outfit',sans-serif", fontSize:32, fontWeight:900, letterSpacing:'-1px', color: valueColor, lineHeight:1, textShadow: valueShadow }}>{value}</div>
+          <div style={{ fontFamily:`Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize:32, fontWeight:900, letterSpacing:'-1px', color: valueColor, lineHeight:1, textShadow: valueShadow }}>{value}</div>
           {sub && <div style={{ fontSize:11, color:'var(--db-text-3)', marginTop:8 }}>{sub}</div>}
         </div>
         <div style={{
@@ -144,7 +144,7 @@ export default function ReferralPage() {
             <IcUsers size={20} />
           </div>
           <div>
-            <h1 style={{ fontFamily:"'Outfit',sans-serif", fontSize:20, fontWeight:800, color:'var(--db-title-color)', lineHeight:1, margin:0 }}>
+            <h1 style={{ fontFamily:`Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize:20, fontWeight:800, color:'var(--db-title-color)', lineHeight:1, margin:0 }}>
               Giới thiệu bạn bè
             </h1>
             <p style={{ fontSize:12, color:'var(--db-text-3)', margin:'4px 0 0' }}>
@@ -301,7 +301,7 @@ export default function ReferralPage() {
               width:38, height:38, borderRadius:11, flexShrink:0,
               display:'flex', alignItems:'center', justifyContent:'center',
               background: s.bg, border:`1px solid ${s.border}`,
-              fontFamily:"'Outfit',sans-serif", fontSize:13, fontWeight:900, color: s.color,
+              fontFamily:`Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize:13, fontWeight:900, color: s.color,
             }}>{s.step}</div>
             <div>
               <div style={{ fontSize:13, fontWeight:700, color:'var(--db-title-color)', marginBottom:4 }}>{s.title}</div>
@@ -321,7 +321,7 @@ export default function ReferralPage() {
         {/* Table header */}
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'16px 20px', borderBottom:'1px solid var(--db-border)', background:'var(--db-surface-2)' }}>
           <div>
-            <div style={{ fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:800, color:'var(--db-title-color)' }}>Lịch sử hoa hồng</div>
+            <div style={{ fontFamily:`Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize:15, fontWeight:800, color:'var(--db-title-color)' }}>Lịch sử hoa hồng</div>
             <div style={{ fontSize:11, color:'var(--db-text-3)', marginTop:2 }}>5 giao dịch gần nhất</div>
           </div>
           <button

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 
@@ -48,8 +48,8 @@
   --nav-h: 76px;
 
   /* === Typography === */
-  --font-head: 'Outfit', 'Inter', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-head: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ===== RESET ===== */
@@ -1094,6 +1094,12 @@ body::after {
   font-weight: 800;
   font-size: 15px;
   color: var(--white);
+}
+
+.fc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .fc-label {
@@ -3188,7 +3194,7 @@ body::after {
     border-top: 1px solid rgba(255, 255, 255, 0.09);
   }
   .nav-mobile-auth .nav-auth-outline {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     padding: 13px 20px;
@@ -7266,4 +7272,521 @@ body::after {
 
 .notfound-sub {
   color: var(--lt-text-2) !important;
+}
+
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║        MOBILE + TABLET RESPONSIVE OVERHAUL                  ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ── TABLET (≤1024px) ── */
+@media (max-width: 1024px) {
+
+  /* Process flow: show 2-col grid on tablet instead of hiding cards */
+  .qt-flow {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .qt-flow > .qt-flow-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .qt-connector {
+    display: none;
+  }
+
+  .qt-flow > .qt-flow-item:nth-child(n+3) {
+    display: none;
+  }
+
+  /* Service cards: 2-col is fine, but tighten padding */
+  .svc-card {
+    padding: 28px 24px;
+  }
+
+  /* Auth: center panel, hide left on tablet */
+  .auth-section {
+    padding: 40px 20px;
+    gap: 32px;
+  }
+
+  /* USP grid: 2-col */
+  .usp-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .usp-panel {
+    padding: 28px 20px 24px;
+  }
+}
+
+/* ── MOBILE (≤768px) ── */
+@media (max-width: 768px) {
+
+  /* Hero: tighter top spacing */
+  .hero-headline {
+    font-size: clamp(32px, 7vw, 40px);
+    letter-spacing: -1.5px;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+  }
+
+  .hero-stats {
+    gap: 20px;
+  }
+
+  .stat-num {
+    font-size: 24px;
+  }
+
+  /* Float cards: hide on mobile (image col already hidden) */
+  .float-card {
+    display: none;
+  }
+
+  /* Process cards: single column, hide steps 3+4 */
+  .qt-flow {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .qt-flow > .qt-flow-item:nth-child(n+3) {
+    display: none;
+  }
+
+  .qt-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .qt-num {
+    font-size: 28px;
+  }
+
+  .qt-card {
+    padding: 24px 20px 22px;
+  }
+
+  .qt-trust-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* Service cards: single column */
+  .svc-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .svc-card {
+    padding: 24px 20px;
+  }
+
+  .svc-card-top {
+    gap: 14px;
+  }
+
+  .svc-icon-wrap {
+    width: 52px;
+    height: 52px;
+  }
+
+  /* USP grid: single column */
+  .usp-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .usp-panel {
+    padding: 24px 18px 20px;
+  }
+
+  /* Pricing: no pro card scale on mobile */
+  .pricing-card-pro {
+    transform: none !important;
+  }
+
+  .pricing-card-pro:hover {
+    transform: translateY(-4px) !important;
+  }
+
+  .plan-popular-flag {
+    font-size: 9px;
+    padding: 4px 14px;
+  }
+
+  /* Calculator panel */
+  .calc-panel {
+    padding: 28px 20px;
+    gap: 32px;
+  }
+
+  .calc-result-panel {
+    padding: 28px 20px;
+  }
+
+  .calc-result-price {
+    font-size: 32px;
+  }
+
+  .calc-pills {
+    gap: 8px;
+  }
+
+  .calc-pill-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  /* Page hero */
+  .page-hero {
+    padding: 52px 0 44px;
+  }
+
+  .page-hero-title {
+    font-size: clamp(24px, 5vw, 32px);
+  }
+
+  .ph-pills {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ph-pill {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  /* Auth panel: smaller padding */
+  .auth-panel {
+    padding: 32px 20px;
+    max-width: 100%;
+    border-radius: var(--r-xl);
+  }
+
+  .auth-title {
+    font-size: 22px;
+  }
+
+  .auth-section {
+    padding: 24px 16px;
+    min-height: auto;
+    gap: 24px;
+  }
+
+  .type-btn {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+
+  /* Blog teaser */
+  .blog-featured-card {
+    grid-template-columns: 1fr;
+  }
+
+  .bfc-visual {
+    min-height: 180px;
+  }
+
+  .bfc-content {
+    padding: 28px 20px;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Blog post page */
+  .bpp-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-top: 32px;
+  }
+
+  .bpp-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-height: none;
+  }
+
+  .bpp-sidebar-panel,
+  .bpp-sidebar-cta {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .bpp-hero {
+    min-height: 320px;
+    padding-bottom: 40px;
+  }
+
+  .bpp-content-panel {
+    padding: 24px 18px;
+  }
+
+  .bpp-related-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Footer */
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-desc {
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+    padding-top: 20px;
+  }
+
+  .footer-link-icon:hover {
+    gap: 7px;
+  }
+
+  .footer-link:hover {
+    padding-left: 0;
+  }
+
+  /* Section spacing reduction */
+  .features,
+  .pricing,
+  .testimonials,
+  .blog-teaser,
+  .quytrinh,
+  .svc-section,
+  .usp-section,
+  .faq-section,
+  .calc-section,
+  .page-cta-section {
+    padding: 64px 0;
+  }
+
+  .features-header,
+  .pricing-header,
+  .testi-header,
+  .blog-header,
+  .qt-header,
+  .svc-header,
+  .usp-header,
+  .faq-header {
+    margin-bottom: 40px;
+  }
+
+  /* Auth success panel */
+  .auth-success-panel {
+    padding: 24px 16px;
+  }
+
+  .auth-success-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Terms modal */
+  .terms-modal-content {
+    padding: 24px 20px;
+    margin: 12px;
+  }
+
+  .terms-modal-actions {
+    flex-direction: column;
+  }
+
+  .terms-modal-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── SMALL MOBILE (≤480px) ── */
+@media (max-width: 480px) {
+
+  .hero-headline {
+    font-size: 30px;
+    letter-spacing: -1px;
+  }
+
+  .hero-actions .btn {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  .section-container {
+    padding: 0 16px;
+  }
+
+  .hero {
+    padding: calc(var(--nav-h) + 40px) 16px 60px;
+  }
+
+  .features,
+  .pricing,
+  .testimonials,
+  .blog-teaser,
+  .quytrinh,
+  .svc-section,
+  .usp-section,
+  .faq-section,
+  .calc-section {
+    padding: 52px 0;
+  }
+
+  .nav-container {
+    padding: 0 16px;
+  }
+
+  /* Auth panel even smaller */
+  .auth-panel {
+    padding: 28px 16px;
+    border-radius: 16px;
+  }
+
+  .auth-title {
+    font-size: 20px;
+  }
+
+  .auth-submit-btn {
+    padding: 13px 18px;
+    font-size: 13px;
+  }
+
+  .auth-check-label {
+    font-size: 11px;
+  }
+
+  .auth-benefit-item {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .auth-benefit-title {
+    font-size: 13px;
+  }
+
+  /* Footer: single col */
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer {
+    padding: 52px 16px 24px;
+  }
+
+  .footer-tagline {
+    font-size: 15px;
+  }
+
+  /* Calculator */
+  .calc-panel {
+    padding: 24px 16px;
+    gap: 24px;
+  }
+
+  .calc-result-price {
+    font-size: 28px;
+  }
+
+  /* Pricing cards tighter */
+  .pricing-card {
+    padding: 32px 20px;
+  }
+
+  .pricing-card-pro {
+    padding: 32px 20px;
+  }
+
+  .plan-price {
+    font-size: 24px;
+  }
+
+  /* Page CTA */
+  .page-cta-panel {
+    padding: 36px 16px;
+  }
+
+  .page-cta-title {
+    font-size: clamp(20px, 4vw, 26px);
+  }
+
+  /* Blog */
+  .bfc-title {
+    font-size: clamp(16px, 3.5vw, 20px);
+  }
+
+  /* Process cards */
+  .qt-card {
+    padding: 20px 16px;
+  }
+
+  .qt-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .qt-desc {
+    font-size: 12px;
+  }
+
+  /* Service cards */
+  .svc-card-top {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .svc-icon-wrap {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Testimonials */
+  .testi-card {
+    padding: 24px 18px;
+  }
+
+  .testi-quote {
+    font-size: 13px;
+  }
+
+  .testi-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Blog post */
+  .bpp-content-panel {
+    padding: 20px 14px;
+  }
+
+  .bpp-hero-inner {
+    padding-top: 40px;
+  }
+
+  .bpp-nav-strip {
+    gap: 8px;
+  }
+
+  .bpp-nav-btn {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
 }

@@ -108,7 +108,7 @@ const CSS = `
 }
 .acc-avatar-initials {
   font-size:34px; font-weight:900; color:#fff;
-  font-family:'Outfit',sans-serif; letter-spacing:-1px;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; letter-spacing:-1px;
 }
 .acc-avatar-overlay {
   position:absolute; inset:0; border-radius:50%;
@@ -125,7 +125,7 @@ const CSS = `
 }
 
 .acc-name {
-  font-family:'Outfit',sans-serif; font-size:20px; font-weight:900;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; font-size:20px; font-weight:900;
   color:var(--db-text); margin:0 0 5px;
 }
 .acc-email { font-size:13px; color:var(--db-text-2); margin:0 0 18px; }
@@ -158,7 +158,7 @@ const CSS = `
 .acc-stat-icon { margin-bottom:6px; display:flex; justify-content:center; }
 .acc-stat-val {
   font-size:18px; font-weight:900; line-height:1; margin-bottom:5px;
-  font-family:'Outfit',sans-serif; color:var(--acc-stat-color);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; color:var(--acc-stat-color);
 }
 .acc-stat-lbl { font-size:11px; font-weight:600; color:var(--db-text-2); letter-spacing:.04em; }
 
@@ -177,7 +177,7 @@ const CSS = `
 }
 .acc-section-title {
   margin:0; font-size:15px; font-weight:800; color:var(--db-text);
-  font-family:'Outfit',sans-serif;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 .acc-section-sub { margin:2px 0 0; font-size:12px; color:var(--db-text-2); }
 

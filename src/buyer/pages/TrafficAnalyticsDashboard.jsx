@@ -159,14 +159,14 @@ function WorldMapPanel({ isDark, days }) {
     }}>
       <div style={{ padding: '18px 22px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--db-title-color)', fontFamily: "'Outfit',sans-serif" }}>Nguồn Traffic Toàn Cầu</div>
+          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--db-title-color)', fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif` }}>Nguồn Traffic Toàn Cầu</div>
           <div style={{ fontSize: 11, color: 'var(--db-text-3)', marginTop: 2 }}>{fmtN(total)} lượt · {days} ngày</div>
         </div>
         <div style={{ display: 'flex', gap: 14 }}>
           {[{ label: 'Tổng', val: fmtN(total), c: PC.blueL }, { label: '#1', val: nodes[0]?.label, c: PC.orange }].map(s => (
             <div key={s.label} style={{ textAlign: 'right' }}>
               <div style={{ fontSize: 10.5, color: 'var(--db-text-3)' }}>{s.label}</div>
-              <div style={{ fontSize: 14, fontWeight: 800, color: s.c, fontFamily: "'Outfit',sans-serif" }}>{s.val}</div>
+              <div style={{ fontSize: 14, fontWeight: 800, color: s.c, fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif` }}>{s.val}</div>
             </div>
           ))}
         </div>
@@ -203,7 +203,7 @@ function WorldMapPanel({ isDark, days }) {
                   style={{ filter: isH ? `drop-shadow(0 0 8px ${n.color}99)` : 'none', transition: 'all 0.15s' }} />
                 {/* Always-visible value label above bar */}
                 <text x={bx + barW / 2} y={by - 5} textAnchor="middle"
-                  fill={n.color} fontSize={10 * fS} fontWeight="700" fontFamily="Outfit,sans-serif"
+                  fill={n.color} fontSize={10 * fS} fontWeight="700" fontFamily="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif"
                   opacity={isH ? 1 : 0.85}>
                   {fmtN(n.value)}
                 </text>
@@ -247,7 +247,7 @@ function DevicePanel({ days }) {
       borderRadius: 20, boxShadow: 'var(--db-shadow)', padding: '16px 20px',
       backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
     }}>
-      <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--db-title-color)', fontFamily: "'Outfit',sans-serif", marginBottom: 2 }}>Phân Tích Thiết Bị</div>
+      <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--db-title-color)', fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, marginBottom: 2 }}>Phân Tích Thiết Bị</div>
       <div style={{ fontSize: 11, color: 'var(--db-text-3)', marginBottom: 14 }}>{days} ngày gần nhất</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 24 : 20, flexWrap: 'wrap' }}>
         <svg width={donutSize} height={donutSize} viewBox={`0 0 ${donutSize} ${donutSize}`} style={{ flexShrink: 0 }}>
@@ -268,12 +268,12 @@ function DevicePanel({ days }) {
           <circle cx={cx} cy={cy} r={r - 2} fill="var(--db-surface)" />
           {hov ? (
             <>
-              <text x={cx} y={cy - 7} textAnchor="middle" fill={hov.color} fontSize={isMobile ? 22 : 18} fontWeight="900" fontFamily="Outfit,sans-serif">{hov.pct}%</text>
+              <text x={cx} y={cy - 7} textAnchor="middle" fill={hov.color} fontSize={isMobile ? 22 : 18} fontWeight="900" fontFamily="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif">{hov.pct}%</text>
               <text x={cx} y={cy + 11} textAnchor="middle" fill="var(--db-text-3)" fontSize={isMobile ? 11 : 10} fontFamily="Inter,sans-serif">{hov.label}</text>
             </>
           ) : (
             <>
-              <text x={cx} y={cy - 5} textAnchor="middle" fill="var(--db-title-color)" fontSize={isMobile ? 24 : 20} fontWeight="900" fontFamily="Outfit,sans-serif">100%</text>
+              <text x={cx} y={cy - 5} textAnchor="middle" fill="var(--db-title-color)" fontSize={isMobile ? 24 : 20} fontWeight="900" fontFamily="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif">100%</text>
               <text x={cx} y={cy + 14} textAnchor="middle" fill="var(--db-text-3)" fontSize={isMobile ? 12 : 10} fontFamily="Inter,sans-serif">Tất cả</text>
             </>
           )}
@@ -290,7 +290,7 @@ function DevicePanel({ days }) {
               onMouseEnter={() => setHovIdx(i)} onMouseLeave={() => setHovIdx(null)}>
               <span style={{ width: 10, height: 10, borderRadius: 3, background: s.color, flexShrink: 0 }} />
               <span style={{ fontSize: 12.5, color: 'var(--db-text-2)', flex: 1 }}>{s.label}</span>
-              <span style={{ fontSize: 14, fontWeight: 800, color: s.color, fontFamily: "'Outfit',sans-serif" }}>{s.pct}%</span>
+              <span style={{ fontSize: 14, fontWeight: 800, color: s.color, fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif` }}>{s.pct}%</span>
             </div>
           ))}
         </div>
@@ -332,13 +332,13 @@ function CustomTooltip({ active, payload, label }) {
     }}>
       <div style={{ fontSize: 12, color: 'var(--db-text-3)', marginBottom: 8 }}>{label}</div>
       {traffic && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 800, fontFamily: "'Outfit', sans-serif", color: 'var(--db-title-color)', marginBottom: 4 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 800, fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`, color: 'var(--db-title-color)', marginBottom: 4 }}>
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#6366F1', display: 'inline-block' }} />
           {fmtFull(traffic.value)} lượt
         </div>
       )}
       {cost && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, fontFamily: "'Outfit', sans-serif", color: '#A78BFA' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`, color: '#A78BFA' }}>
           <span style={{ width: 8, height: 2, borderRadius: 99, background: '#A78BFA', display: 'inline-block' }} />
           {Math.round(cost.value * 25400).toLocaleString('vi-VN')}₫ chi phí
         </div>
@@ -376,7 +376,7 @@ function KPICard({ label, value, sub, color, icon }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center', color,
         }}>{icon}</div>
       </div>
-      <div style={{ fontSize: 20, fontWeight: 900, fontFamily: "'Outfit', sans-serif", color, lineHeight: 1.1, marginBottom: 3, letterSpacing: '-0.02em' }}>{value}</div>
+      <div style={{ fontSize: 20, fontWeight: 900, fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`, color, lineHeight: 1.1, marginBottom: 3, letterSpacing: '-0.02em' }}>{value}</div>
       {sub && <div style={{ fontSize: 10.5, color: 'var(--db-text-3)' }}>{sub}</div>}
     </div>
   )
@@ -444,7 +444,7 @@ function TableRow({ rank, label, sub, badge, value, maxVal, color, canDrill, sho
         </div>
       </td>
       <td style={{ padding: '12px 16px', textAlign: 'right' }}>
-        <span style={{ fontSize: 14, fontWeight: 800, fontFamily: "'Outfit', sans-serif", color }}>{fmtFull(value)}</span>
+        <span style={{ fontSize: 14, fontWeight: 800, fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`, color }}>{fmtFull(value)}</span>
         <div style={{ fontSize: 11, color: 'var(--db-text-3)', marginTop: 1 }}>lượt</div>
       </td>
       {showDrillCol && (
@@ -606,11 +606,11 @@ function AnalyticsLineChart({ data, isDark }) {
               <circle cx={tx + 14} cy={ty + 37} r="4" fill="#0056CC" />
               <text x={tx + 24} y={ty + 41} fill={ttText} fontSize="11" fontFamily="Inter,sans-serif">Traffic</text>
               <text x={tx + ttW - 10} y={ty + 41} fill="#1A7FFF" fontSize="13" fontWeight="800"
-                textAnchor="end" fontFamily="Outfit,sans-serif">{hp.v.toLocaleString()}</text>
+                textAnchor="end" fontFamily="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif">{hp.v.toLocaleString()}</text>
               <circle cx={tx + 14} cy={ty + 60} r="4" fill="#FF8C00" />
               <text x={tx + 24} y={ty + 64} fill={ttText} fontSize="11" fontFamily="Inter,sans-serif">Chi phí</text>
               <text x={tx + ttW - 10} y={ty + 64} fill="#FF8C00" fontSize="13" fontWeight="800"
-                textAnchor="end" fontFamily="Outfit,sans-serif">{(hc.v * 25400).toLocaleString('vi-VN')}đ</text>
+                textAnchor="end" fontFamily="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif">{(hc.v * 25400).toLocaleString('vi-VN')}đ</text>
             </g>
           )
         })()}
@@ -724,7 +724,7 @@ export default function TrafficAnalyticsDashboard({ theme = 'dark', range: exter
   }, [selectedCamp, selectedItem])
 
   return (
-    <div style={{ fontFamily: "'Inter', 'Outfit', sans-serif", color: 'var(--db-text)' }}>
+    <div style={{ fontFamily: `'Inter', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`, color: 'var(--db-text)' }}>
 
       {/* ── HEADER ── */}
       <div style={{ marginBottom: 20 }}>
@@ -829,7 +829,7 @@ export default function TrafficAnalyticsDashboard({ theme = 'dark', range: exter
       <Panel>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 22px', borderBottom: '1px solid var(--db-border)', flexWrap: 'wrap', gap: 10 }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: 14, fontWeight: 800, color: 'var(--db-title-color)', fontFamily: "'Outfit', sans-serif" }}>{tableTitle}</h3>
+            <h3 style={{ margin: 0, fontSize: 14, fontWeight: 800, color: 'var(--db-title-color)', fontFamily: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif` }}>{tableTitle}</h3>
             <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--db-text-3)' }}>
               {scope === 'item' ? `${rangeInfo.days} ngày` : `${tableRows.length} mục · Nhấn vào hàng để xem chi tiết`}
             </p>
@@ -869,8 +869,8 @@ export default function TrafficAnalyticsDashboard({ theme = 'dark', range: exter
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 22px', borderTop: '1px solid var(--db-border)', flexWrap: 'wrap', gap: 8 }}>
           <span style={{ fontSize: 12, color: 'var(--db-text-3)' }}>{tableRows.length} mục</span>
           <div style={{ display: 'flex', gap: 20 }}>
-            <span style={{ fontSize: 12, color: 'var(--db-text-3)' }}>Tổng: <strong style={{ color: 'var(--db-title-color)', fontFamily: "'Outfit',sans-serif" }}>{fmtFull(totalTraffic)}</strong></span>
-            <span style={{ fontSize: 12, color: 'var(--db-text-3)' }}>TB/ngày: <strong style={{ color: 'var(--db-title-color)', fontFamily: "'Outfit',sans-serif" }}>{fmtFull(avgDaily)}</strong></span>
+            <span style={{ fontSize: 12, color: 'var(--db-text-3)' }}>Tổng: <strong style={{ color: 'var(--db-title-color)', fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif` }}>{fmtFull(totalTraffic)}</strong></span>
+            <span style={{ fontSize: 12, color: 'var(--db-text-3)' }}>TB/ngày: <strong style={{ color: 'var(--db-title-color)', fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif` }}>{fmtFull(avgDaily)}</strong></span>
           </div>
         </div>
       </Panel>

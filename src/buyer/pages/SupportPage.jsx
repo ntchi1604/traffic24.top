@@ -275,7 +275,7 @@ export default function SupportPage({ theme = 'dark' }) {
                 }}>
                   {/* Row 1: ID + status */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--db-text-3)', fontFamily: 'Courier New, monospace' }}>{tk.id}</span>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--db-text-3)', fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" }}>{tk.id}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                       <div style={{
                         width: 7, height: 7, borderRadius: '50%',
@@ -354,7 +354,7 @@ export default function SupportPage({ theme = 'dark' }) {
               }}>
                 {ticket.status === 'pending' ? 'Đang xử lý' : 'Đã đóng'}
               </span>
-              <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--db-text-3)', fontFamily: 'Courier New, monospace' }}>{ticket.id}</span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--db-text-3)', fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" }}>{ticket.id}</span>
             </div>
           </div>
 

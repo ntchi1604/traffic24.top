@@ -93,7 +93,7 @@ function VersionExplainer() {
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 20, fontWeight: 900, color: v.tagColor }}>{v.tag}</span>
+              <span style={{ fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize: 20, fontWeight: 900, color: v.tagColor }}>{v.tag}</span>
               <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--db-title-color)' }}>{v.title}</span>
             </div>
             <span style={{
@@ -237,7 +237,7 @@ export default function PricingPage() {
                           <Icon />
                         </div>
                         <div>
-                          <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: 13, fontWeight: 800, color: 'var(--db-title-color)' }}>
+                          <div style={{ fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize: 13, fontWeight: 800, color: 'var(--db-title-color)' }}>
                             {t.label}
                           </div>
                           <div style={{ fontSize: 10, color: 'var(--db-text-3)', marginTop: 1 }}>
@@ -309,7 +309,7 @@ export default function PricingPage() {
                         border: '1px solid var(--db-border)',
                         transition: 'all 0.2s',
                       }}>
-                        <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 14, fontWeight: 900, lineHeight: 1, color: 'var(--db-title-color)' }}>
+                        <span style={{ fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize: 14, fontWeight: 900, lineHeight: 1, color: 'var(--db-title-color)' }}>
                           {parseInt(dur)}
                         </span>
                         <span style={{ fontSize: 8, color: 'var(--db-text-3)', marginTop: 1 }}>giây</span>
@@ -340,7 +340,7 @@ export default function PricingPage() {
                               border: `1px solid ${isHov ? 'rgba(245,158,11,0.35)' : 'rgba(245,158,11,0.12)'}`,
                               transition: 'all 0.15s',
                             }}>
-                              <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 900, color: '#f59e0b', lineHeight: 1 }}>
+                              <span style={{ fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize: 15, fontWeight: 900, color: '#f59e0b', lineHeight: 1 }}>
                                 {vnd(v1)}
                               </span>
                             </div>
@@ -355,7 +355,7 @@ export default function PricingPage() {
                               border: `1px solid ${isHov ? 'rgba(96,165,250,0.35)' : 'rgba(96,165,250,0.12)'}`,
                               transition: 'all 0.15s',
                             }}>
-                              <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 900, color: '#60a5fa', lineHeight: 1 }}>
+                              <span style={{ fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize: 15, fontWeight: 900, color: '#60a5fa', lineHeight: 1 }}>
                                 {vnd(v2)}
                               </span>
                             </div>
@@ -486,7 +486,7 @@ export default function PricingPage() {
                   display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                   background: 'var(--db-surface-2)', border: '1px solid var(--db-border)',
                 }}>
-                  <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 900, lineHeight: 1, color: 'var(--db-title-color)' }}>
+                  <span style={{ fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize: 16, fontWeight: 900, lineHeight: 1, color: 'var(--db-title-color)' }}>
                     {parseInt(dur)}
                   </span>
                   <span style={{ fontSize: 9, color: 'var(--db-text-3)' }}>giây</span>
@@ -599,7 +599,7 @@ export default function PricingPage() {
           <div style={{ position: 'absolute', top: -24, left: -24, width: 100, height: 100, borderRadius: '50%', background: 'rgba(59,130,246,0.07)', filter: 'blur(28px)', pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', bottom: -24, right: -24, width: 120, height: 120, borderRadius: '50%', background: 'rgba(139,92,246,0.07)', filter: 'blur(28px)', pointerEvents: 'none' }} />
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 800, color: 'var(--db-title-color)', marginBottom: 5 }}>
+            <div style={{ fontFamily: `Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`, fontSize: 16, fontWeight: 800, color: 'var(--db-title-color)', marginBottom: 5 }}>
               Cần báo giá cho khối lượng lớn?
             </div>
             <p style={{ fontSize: 12.5, color: 'var(--db-text-3)', margin: 0, lineHeight: 1.6 }}>
